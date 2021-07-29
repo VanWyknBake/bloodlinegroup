@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+        <!-- ===== CSS ===== -->
+        <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
+
+        <link href="https://fonts.googleapis.com/css2?family=Merienda&family=Nosifer&family=Ruthie&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300&display=swap" rel="stylesheet">
+
+        <!-- ===== BOX ICONS ===== -->
+        <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+
+
+
+        <title>Portfolio responsive complete</title>
+</head>
+
+<body>
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v11.0" nonce="NeUB8FL1"></script>
+    <!--===== HEADER =====-->
+    <header class="l-header">
+            <nav class="nav bd-grid">
+                
+               <div>
+                    <a href="#" class="nav__logo">{{ home.name }}</a>
+                </div>
+
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list">
+                        <li class="nav__item"><a href="{% url 'index' %}" class="nav__link active"><i class="bx bx-home"></i> Home</a></li>
+                        
+                        
+                        {% if user.is_active %}
+                        <li class="nav__item"><a href="{% url 'index' %}" class="nav__link"><i class="bx bx-video"></i> Streamers</a></li>
+                        <li class="nav__item"><a href="{% url 'index' %}" class="nav__link"><i class="bx bx-group"></i> Teams</a></li>
+                        <li class="nav__item"><a href="#tour" class="nav__link"><i class="bx bx-notepad"></i> Tournaments</a></li>
+                        
+                        
+                       
+                        {% else %}
+                        <li class="nav__item"><a href="{% url 'index' %}" class="nav__link"><i class="bx bx-question-mark"></i> About</a></li>
+                        
+                        <li class="nav__item"><a href="#results" class="nav__link"><i class="bx bx-id-card"></i> Our Results</a></li>
+                        <li class="nav__item"><a href="{% url 'index' %}" class="nav__link"><i class="bx bx-envelope"></i> Contact</a></li>
+                        
+                        {% endif %}
+                        <li class="nav__item"><a href="{% url 'index' %}" class="nav__link"><i class="bx bxl-youtube"></i> Videos</a></li>
+                        {% if not user.is_active %}
+                        <li class="nav__item"><a href="{% url 'account_login' %}" class="nav__link"><i class="bx bx-log-in"></i> Log In</a></li>
+                        {% endif %}
+                        {% if user.is_active %}
+                        <li class="nav__item"><a href="{% url 'account_logout' %}" class="nav__link"><i class="bx bx-log-in"></i> Log Out</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class='bx bx-droplet bx-flashing'></i>
+                </div>
+            </nav>
+        </header>
+
+    
+
+        
+{% block content%}
+
+
+
+{% endblock %}
+<!--===== SCROLL REVEAL =====-->
+        <script src="https://unpkg.com/scrollreveal"></script>
+
+        <!--===== MAIN JS =====-->
+        <script src="{% static 'assets/js/main.js' %}"></script>
+</body>
+
+</html>

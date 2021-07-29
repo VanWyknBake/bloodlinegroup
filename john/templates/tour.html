@@ -1,0 +1,239 @@
+{% extends 'account/base.html' %}
+{% load static %}
+
+{% block content %}
+<!--===== HOME =====-->
+            <section class="home" id="home">
+                <div class="home__container bd-grid text text-center">
+                    <h1 class="home__title"><span>{{ home.greetings_1|upper }}</span><br></h1>
+
+
+                    <div class="home__scroll" style="z-index:10;">
+                    {% if user.is_active  %}
+                        <a href="#tour" class="home__scroll-link text text-left"><i class='bx bx-up-arrow-circle bx-fade-up' ></i></a>
+                    {% else %}
+                        <a href="#tour" class="home__scroll-link text text-left"><i class='bx bx-up-arrow-circle bx-fade-up' ></i></a>
+                    {% endif %}
+                    </div>
+                    {% if user.is_active %}
+                    <br>
+                    <br>
+                    <p class="about__text" style=" color: white; z-index:10; text-align:center;font-family:'Monsterat';text-shadow: 0 3px 2px var(--dark-color);">&nbsp;{{ user.username }}<br>Tournaments</p>
+                    {% else %}
+                    <p class="about__text" style=" color: white; z-index:10; text-align:center;font-family:'Monsterat'; text-shadow: 0 3px 2px var(--dark-color);">Tournaments</p>
+
+                    {% endif %}
+
+                    <img src="{{ home.picture.url }}" alt="" class="home__img">
+                </div>
+            </section>
+                <script src="https://apps.elfsight.com/p/platform.js" defer></script>
+            <div class="elfsight-app-fe535110-2fb0-4d22-91ba-1af24c9b2f00"></div>
+
+               <!--Tournaments-->
+
+            <section class="about container bd-grid" id="tour">
+                <h1 class="section-title">BloodLine Tournaments</h1>
+                <small><p style='text-align:center;border:1px solid black;padding:10px;'>This is a temporary display for Tournaments. A more detailed Tournament section for Bloodline is currently in development <i style="color:brown;" class="bx bx-cog bx-spin"></i></p></small><br>
+                <small><p style='text-align:center;'><i>Note that each room ID will be available 10 - 30min before starting time.</i></p></small><br>
+                {% for t in tournament %}
+
+
+
+
+
+
+                <div class="skills__container " style="color:white;text-align:center;border:1px solid white;border-radius: 5px; box-shadow:1px 1px 5px 1px black; padding:10px;background-image: linear-gradient(to bottom, var(--dark-color), black, black, black, black, black, var(--dark-color));">
+
+
+                <h2 style="text-align:center;" class="about__profession">{{t.tp|upper}}</h2>
+                    <div class="skills__img" style="display: block;
+  margin-left: auto;
+  margin-right: auto;height:auto;
+  width: 50%;border:1px solid white;border-radius: 8px;padding:3px;">
+                        <img src="{% static 'assets/img/m.png' %}" alt="">
+                    </div>
+                    <br>
+                    <div style="text-align:center;">
+
+                        <h2 class="about__profession"><b>Host:&nbsp;</b> {{ t.host|upper }}</h2>
+                        <span class="about__profession"><b style="text-align:left;">Game Type:&nbsp;</b> {{ t.game_type }}</span>
+                        <p class="about__text"><b>Details:&nbsp;</b> {{ t.info }}</p>
+                        <p class="about__text"><b>When:&nbsp;</b> {{ t.when }}</p>
+
+                        <a href="#" class="bx-flashing about__text text-light " ><i class="bx bxl-discord text-dark"></i>Register Here!</a>
+                        <h2 class="about__profession">Registered Teams :</h2>
+
+
+
+                            <form placeholder="All Teams" >
+                            <i class='bx bx-group bx-md' ></i><br>
+                              <label></label>
+                              <select class="btn btn-danger btn-outline-dark text-light" style="transition: 1s; justify-content:center; left:10px;">
+                              <option value="" disabled selected>All Teams</option>
+
+                              {% for skills in t.participants_set.all %}
+                                <option style="text-align:center; color:white;" value="All"  disabled="disabled"><i class='bx bx-group' ></i> {{ skills.team_name}}</option>
+
+                                {% endfor %}
+
+                              </select>
+                              <br><br>
+
+                            </form>
+
+                        <div class="fb-share-button text text-center" data-href="https://thebloodline.pythonanywhere.com/tour/#tour" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fthebloodline.pythonanywhere.com%2Ftour%2F%23tour&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+
+                    </div>
+
+                </div>
+                <br>
+            {% endfor %}
+
+            </section>
+
+            <!--Results-->
+            <section class="about section" id="results">
+                <h2 class="section-title">Results</h2>
+                <small><p style="text-align:center;"><i>Some of BloodLine's recent Results</i></p></small><br>
+
+                <head>
+                    <style>
+                    table {
+                    border-radius:3px;
+                    border-collapse: collapse;
+                    width: 100%;
+                    color:white;
+                    background-color: var(--first-color)
+                    }
+
+                    td, th {
+                    border: 1px solid white;
+                    border-radius: 5px;
+                    text-align: center;
+                    padding: 8px;
+                    }
+
+                    tr:nth-child(even) {
+                    background-color: var(--dark-color);
+                    color: white;
+                    }
+                    </style>
+                </head>
+
+                    <div class="about__text" style="justify-content:center; text-align:center;">
+
+                        <table>
+                            <tr>
+                                <th><b>Host</b></th>
+                                <th><b>Date</b></th>
+                                <th><b>Game Type</b></th>
+                                <th><b>Result</b></th>
+                            </tr>
+
+
+
+                           <tr>
+
+
+                            {%for r in tournament %}
+                                
+                                <td>{{ r.host }}</td>
+                                
+
+                                <td>{{ r.when }}</td>
+                                <td>{{ r.game_type }}</td>
+
+                                <td>{{ r.result }}</td>
+
+
+
+
+                            </tr>
+                            {% endfor %}
+
+
+
+
+
+
+                        </table>
+
+
+
+
+
+
+                </div>
+            </section>
+
+            <!--===== PORTFOLIO =====-->
+            <section class="portfolio section" id="team">
+                <h2 class="section-title" style="color:white;">BloodLine Alpha Squad</h2>
+                <p class="about__text text text-muted" style='text-align:center;'><small>Click To View Player</small></p>
+
+
+
+
+
+
+
+
+
+
+
+                <div class="portfolio__container bd-grid">
+
+                    {% for t in team %}
+
+
+                    <div class="portfolio__img" style="width:250px;">
+                        <img src="{{ t.image.url }}" alt="">
+
+                        <div class="portfolio__link">
+                            <p><a href="{{ t.image.url }}" target='_blank' class="portfolio__link-name" style='color:white; text-decoration:none;'><i style='color:white;' class="bx bx-user bx-flashing"></i> View</a></p>
+                        </div>
+                        <h2 class="about__text" style='text-align:center;'>{{t.player}}</h2>
+
+                    </div>
+
+
+
+                    {% endfor %}
+
+
+                </div>
+
+            </section>
+
+
+
+
+
+        <!--===== FOOTER =====-->
+        <footer class="footer section" id='footer'>
+            <div class="footer__container bd-grid" style='text-align:center;'>
+                <div class="footer__data">
+                    <h2 class="footer__title">BLOODLINE :</h2>
+                    <p class="footer__text" style='color:white;'>STAY TUNED...</p>
+                </div>
+
+
+
+                <div class="footer__data">
+                    <h2 class="footer__title">FOLLOW US</h2>
+                    <a href="#" class="footer__social"><i class='bx bxl-facebook' ></i></a>
+                    <a href="#" class="footer__social"><i class='bx bxl-discord' ></i></a>
+                    <a href="#" class="footer__social"><i class='bx bxl-twitch' ></i></a>
+                </div>
+
+
+
+
+            </div>
+        </footer>
+
+
+
+
+{% endblock content %}
